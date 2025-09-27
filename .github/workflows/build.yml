@@ -1,5 +1,36 @@
-on: [push, pull_request, workflow_dispatch]
+name: Build ZMK firmware
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3.0
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install west
+        run: pip install west
+
+      - name: Initialize west
+        run: west init -l zmk
+
+      - name: Update west modules
+        run: west update
+
+      - name: Build firmware
+        run: |
+          west build -s zmk/app -b seeeduino_xiao_ble \
+            -- -DZMK_CONFIG=config \
+            -DSHIELD="moNa2_R rgbled_adapter"
