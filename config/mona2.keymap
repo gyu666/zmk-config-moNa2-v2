@@ -4,13 +4,14 @@
 #include <dt-bindings/zmk/pointing.h>
 
 /* ========================================================================== */
-/* 【修正】構文エラーを解消した上下左右反転設定                                 */
+/* 【修正】デフォルト設定との競合を解消した上下左右反転設定                        */
 /* ========================================================================== */
 #include <dt-bindings/zmk/input_transform.h>
 
 &trackball_central_listener {
-    // 括弧内のスペースを排除し、公式仕様通りの正しいビット演算（|）で記述しました
-    input-processors = <&zip_xy_transform(INPUT_TRANSFORM_X_INVERT|INPUT_TRANSFORM_Y_INVERT)>;
+    // ベース側で既にY軸が反転しているため、キーマップ側からはX軸だけを反転させることで、
+    // 結果的に「上下左右すべてが反転した状態」を作り出します。
+    input-processors = <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>;
 };
 /* ========================================================================== */
 
