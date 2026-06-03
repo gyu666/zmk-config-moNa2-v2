@@ -3,6 +3,18 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
+/* ========================================================================== */
+/* 【追記】トラックボールの上下左右反転設定                                     */
+/* ========================================================================== */
+#include <dt-bindings/zmk/input_transform.h>
+
+&trackball_listener {
+    // 左右反転 (INPUT_TRANSFORM_X_INVERT) と 上下反転 (INPUT_TRANSFORM_Y_INVERT) を適応
+    // ※もし「左右だけ」「上下だけ」にしたい場合は、不要な方を | と一緒に削除してください。
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
+};
+/* ========================================================================== */
+
 &mt {
     flavor = "balanced";
     quick-tap-ms = <0>;
@@ -47,26 +59,26 @@
 
         default_layer {
             bindings = <
-&mt Q ESC         &kp W             &kp E         &kp R        &kp T                                   &kp Y       &kp U  &kp I     &kp O     &mt COLON P
-&kp A             &kp S             &kp D         &kp F        &kp G                    &kp MINUS      &kp H       &kp J  &kp K     &kp L     &kp BACKSPACE
-&mt LEFT_SHIFT Z  &kp X             &kp C         &kp V        &kp B       &lt 4 TAB    &kp SEMICOLON  &kp N       &kp M  &mkp MB1  &mkp MB2  &mt RIGHT_SHIFT SLASH
-&kp LCTRL         &mt LEFT_ALT TAB  &kp LEFT_GUI  &lt 2 LG(E)  &lt 1 INT5  &kp SPACE    &lt 4 ENTER    &lt 3 INT4                             &kp DEL
+&mt Q ESC         &kp W             &kp E         &kp R        &kp T                                                   &kp Y       &kp U  &kp I     &kp O     &mt COLON P
+&kp A             &kp S             &kp D         &kp F        &kp G                      &kp MINUS                    &kp H       &kp J  &kp K     &kp L     &kp BACKSPACE
+&mt LEFT_SHIFT Z  &kp X             &kp C         &kp V        &kp B       &lt 4 TAB      &kp SEMICOLON  &kp N       &kp M  &mkp MB1  &mkp MB2  &mt RIGHT_SHIFT SLASH
+&kp LCTRL         &mt LEFT_ALT TAB  &kp LEFT_GUI  &lt 2 LG(E)  &lt 1 INT5  &kp SPACE      &lt 4 ENTER    &lt 3 INT4                               &kp DEL
             >;
         };
 
         layer_1 {
             bindings = <
-&kp LC(Q)  &kp LC(W)  &kp F7     &kp F8               &kp F9                           &kp PLUS   &kp N7  &kp N8  &kp N9  &kp ASTERISK
+&kp LC(Q)  &kp LC(W)  &kp F7     &kp F8               &kp F9                                           &kp PLUS   &kp N7  &kp N8  &kp N9  &kp ASTERISK
 &kp LC(A)  &kp LC(S)  &kp LC(D)  &kp LC(F)            &kp LC(G)            &kp COMMA   &kp MINUS  &kp N4  &kp N5  &kp N6  &kp SLASH
 &kp LC(Z)  &kp LC(X)  &kp LC(C)  &mt LS(LC(V)) LG(V)  &trans     &trans    &kp PERIOD  &kp N0     &kp N1  &kp N2  &kp N3  &kp EQUAL
-&trans     &trans     &trans     &trans               &trans     &trans    &trans      &trans                             &trans
+&trans     &trans     &trans     &trans               &trans     &trans    &trans      &trans                                 &trans
             >;
         };
 
         layer_2 {
             bindings = <
 &kp F1  &kp F2  &kp F3  &kp F4  &kp F5                                       &kp CARET             &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS
-&trans  &trans  &trans  &trans  &trans                   &kp LS(UNDERSCORE)  &kp NON_US_BACKSLASH  &kp AMPERSAND     &kp HASH           &kp DOLLAR            &kp PERCENT
+&trans  &trans  &trans  &trans  &trans                    &kp LS(UNDERSCORE)  &kp NON_US_BACKSLASH  &kp AMPERSAND     &kp HASH           &kp DOLLAR            &kp PERCENT
 &trans  &trans  &trans  &trans  &kp PERIOD  &kp EQUAL    &kp QUESTION        &kp EXCLAMATION       &kp AT            &kp LESS_THAN      &kp GREATER_THAN      &kp TILDE
 &trans  &trans  &trans  &trans  &trans      &trans       &trans              &trans                                                                           &kp PIPE
             >;
