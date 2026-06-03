@@ -4,14 +4,15 @@
 #include <dt-bindings/zmk/pointing.h>
 
 /* ========================================================================== */
-/* 【修正】正しいリスナー名を指定したトラックボール上下左右反転設定              */
+/* 【修正】左右と上下の反転処理を2行に分けて確実に適用させる設定                */
 /* ========================================================================== */
 #include <dt-bindings/zmk/input_transform.h>
 
-// ログから判明した正しいノード名「&trackball_central_listener」を指定します
 &trackball_central_listener {
-    // 左右反転 (INPUT_TRANSFORM_X_INVERT) と 上下反転 (INPUT_TRANSFORM_Y_INVERT) を適応
-    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
+    // 1つの括弧内にまとめず、左右反転と上下反転を順番に2回実行させます
+    input-processors = 
+        <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
+        <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
 };
 /* ========================================================================== */
 
