@@ -4,13 +4,12 @@
 #include <dt-bindings/zmk/pointing.h>
 
 /* ========================================================================== */
-/* 【追記】トラックボールの上下左右反転設定                                     */
+/* 【修正】トラックボールの上下左右反転設定                                     */
 /* ========================================================================== */
 #include <dt-bindings/zmk/input_transform.h>
 
-&trackball_listener {
-    // 左右反転 (INPUT_TRANSFORM_X_INVERT) と 上下反転 (INPUT_TRANSFORM_Y_INVERT) を適応
-    // ※もし「左右だけ」「上下だけ」にしたい場合は、不要な方を | と一緒に削除してください。
+// エラーの原因だった「_listener」を削除し、直接 &trackball を指定します
+&trackball {
     input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
 };
 /* ========================================================================== */
