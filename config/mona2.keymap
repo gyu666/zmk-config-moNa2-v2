@@ -4,13 +4,13 @@
 #include <dt-bindings/zmk/pointing.h>
 
 /* ========================================================================== */
-/* 【修正】上下左右同時反転マクロ（XY_INVERT）を適用する設定                      */
+/* 【修正】構文エラーを解消した上下左右反転設定                                 */
 /* ========================================================================== */
 #include <dt-bindings/zmk/input_transform.h>
 
 &trackball_central_listener {
-    // XとYを個別に指定するのではなく、上下左右を同時に反転させる専用マクロに差し替えました
-    input-processors = <&zip_xy_transform INPUT_TRANSFORM_XY_INVERT>;
+    // 括弧内のスペースを排除し、公式仕様通りの正しいビット演算（|）で記述しました
+    input-processors = <&zip_xy_transform(INPUT_TRANSFORM_X_INVERT|INPUT_TRANSFORM_Y_INVERT)>;
 };
 /* ========================================================================== */
 
