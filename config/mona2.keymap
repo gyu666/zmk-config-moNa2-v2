@@ -4,16 +4,14 @@
 #include <dt-bindings/zmk/pointing.h>
 
 /* ========================================================================== */
-/* 【修正】変数名に依存しないトラックボール上下左右反転設定                      */
+/* 【修正】正しいリスナー名を指定したトラックボール上下左右反転設定              */
 /* ========================================================================== */
 #include <dt-bindings/zmk/input_transform.h>
 
-// ベースファイルの名前定義に依存しないよう、プロセッサーの挙動自体を直接上書き定義します
-&zip_xy_transform {
-    compatible = "zmk,input-processor-xy-transform";
-    #input-processor-cells = <1>;
-    // 左右反転と上下反転のフラグを直接適応します
-    bindings = <(INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
+// ログから判明した正しいノード名「&trackball_central_listener」を指定します
+&trackball_central_listener {
+    // 左右反転 (INPUT_TRANSFORM_X_INVERT) と 上下反転 (INPUT_TRANSFORM_Y_INVERT) を適応
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
 };
 /* ========================================================================== */
 
